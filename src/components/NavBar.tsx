@@ -17,7 +17,7 @@ const NavBar = (user: User | any) => {
 
 
   return (
-    <nav className={`flex p-5 justify-around transition-opacity duration-300 ${
+    <nav className={`flex px-5 py-8 justify-around transition-opacity duration-300 ${
       loaded ? "opacity-100" : "opacity-0"
     }`}>
       <div>

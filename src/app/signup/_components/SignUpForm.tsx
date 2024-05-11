@@ -22,11 +22,11 @@ export default function SignUpForm() {
 
   return (
     <div
-      className={`min-h-dvh max-h-full flex flex-col items-center justify-center max-md:h-full my-10 transition-opacity duration-300 ${
+      className={`min-h-dvh max-h-full flex flex-col items-center justify-center max-md:h-full my-2 transition-opacity duration-300 ${
         loaded ? "opacity-100 ease-in" : "opacity-0"
       }`}
     >
-      <div className="w-16 mb-5 ">
+      <div className="w-16 mb-16">
         <Link href="/">
           <img src="/logo.png" alt="" />
         </Link>
@@ -51,8 +51,9 @@ export default function SignUpForm() {
               name="email"
               type="email"
               required
-              onChange={(e) => { setEmail(e.target.value) }}
-              
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </div>
 
@@ -65,7 +66,9 @@ export default function SignUpForm() {
               name="password"
               type="password"
               required
-              onChange={(e) => { setPassword(e.target.value) }}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
           </div>
 
@@ -84,12 +87,14 @@ export default function SignUpForm() {
             className="bg-black rounded-xl font-medium text-white p-3 hover:bg-gray-800 transition-all w-full"
             formAction={() => {
               if (password === confirmPassword) {
-                signup
-            }}}
+                signup;
+              }
+            }}
             onClick={() => {
               if (password != "" && email != "") {
-                setLoading(true)}}
+                setLoading(true);
               }
+            }}
           >
             {loading ? "Carregando..." : "Criar Conta"}
           </button>
@@ -139,7 +144,10 @@ export default function SignUpForm() {
         </div>
         <div className="flex gap-1 justify-center my-3">
           <p className="text-xs">Já tem uma conta?</p>
-          <Link className="font-bold text-xs" href="/login">
+          <Link
+            className="font-bold text-xs relative hover:text-black underline-animation"
+            href="/login"
+          >
             Entrar
           </Link>
         </div>

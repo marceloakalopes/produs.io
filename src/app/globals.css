@@ -74,3 +74,17 @@
       @apply bg-background text-foreground;
     }
   }
+
+  .underline-animation::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: width .3s ease-in-out;
+  }
+  
+  .underline-animation:hover::after {
+    width: 100%;
+  }
+  

@@ -25,7 +25,7 @@ export default function LoginForm() {
         loaded ? "opacity-100 ease-in" : "opacity-0"
       }`}
     >
-      <div className="w-16 mb-5">
+      <div className="w-16 mb-16">
         <Link href="/">
           <img src="/logo.png" alt="" />
         </Link>
@@ -129,7 +129,10 @@ export default function LoginForm() {
         </div>
         <div className="flex gap-1 justify-center my-3 max-md:flex-col max-md:items-center">
           <p className="text-xs">Ainda não tem uma conta?</p>
-          <Link className="font-bold text-xs" href="/signup">
+          <Link
+            className="font-bold text-xs relative hover:text-black underline-animation"
+            href="/signup"
+          >
             Crie uma conta
           </Link>
         </div>

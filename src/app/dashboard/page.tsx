@@ -19,9 +19,9 @@ export default async function Dashboard() {
   }
 
   return (
-    <div className="block px-10 inset-0 z-10 min-h-dvh max-h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+    <div className="block max-lg:flex max-lg:flex-col max-lg:items-center px-10 inset-0 z-10 min-h-screen w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
       <AddNewCard />
-      <div className="grid gap-5 grid-cols-4 max-lg:grid-cols-1 max-xl:grid-cols-2  max-2xl:grid-cols-3">
+      <div className="grid gap-y-12 grid-cols-4 max-lg:grid-cols-1 max-xl:grid-cols-2  max-2xl:grid-cols-3">
         {data?.map((board) => (
           <BoardCard
             key={board.board_id}

@@ -23,7 +23,7 @@ const BoardCard = (props: BoardCardProps) => {
   }, []);
 
   return (
-    <div className={`w-64 place-self-center transition-all duration-300 ease-in-out transform active:scale-95 ${
+    <div className={`hover:cursor-pointer w-64 place-self-center transition-all duration-300 ease-in-out transform active:scale-95 ${
       loaded ? "opacity-100 ease-in" : "opacity-0"
     }`}>
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -33,6 +33,9 @@ const BoardCard = (props: BoardCardProps) => {
         ></div>
         <div className="p-4 h-24">
           <h1 className="text-gray-900 font-bold text-2xl select-none">{props.title}</h1>
+        </div>
+        <div className="flex w-full pb-5 pr-5 items-center justify-end">
+          <Button variant='destructive' onClick={() => deleteBoard(props.board_id)}>Delete card</Button>
         </div>
       </div>
     </div>
