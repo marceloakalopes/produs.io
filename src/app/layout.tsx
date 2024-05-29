@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Produs - experimente produtividade de verdade",
   description: "App de produtividade para estudantes",
   icons: {
-    icon: "@/favicon.ico",
+    icon: "/favicon.ico",
   }
 
 };
