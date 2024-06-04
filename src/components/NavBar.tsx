@@ -23,7 +23,7 @@ const NavBar = (user: User | any) => {
       <div>
         <img className="w-16" src="/logo.png" alt="" />
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center max-sm:hidden">
         { user.user ? (
           <div className="flex items-center justify-center">
             <Link

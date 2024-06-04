@@ -26,12 +26,12 @@ export default function LoginForm() {
         loaded ? "opacity-100 ease-in" : "opacity-0"
       }`}
     >
-      <div className="w-16 mb-16">
+      <div className="w-16 mb-16 max-md:mb-8">
         <Link href="/">
           <img src="/logo.png" alt="" />
         </Link>
       </div>
-      <div className="flex max-w-96 flex-col justify-center gap-5 max-md:max-w-80 max-md:py-10 ">
+      <div className="flex max-w-96 flex-col justify-center gap-5 max-md:max-w-80">
         <div className="mb-5">
           <h2 className="tracking-tight font-extrabold text-xl">
             O melhor app de produtividade para estudantes
