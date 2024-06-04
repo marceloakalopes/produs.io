@@ -10,6 +10,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loaded, setLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleLoad = () => {
     setLoaded(true);
@@ -74,15 +75,25 @@ export default function LoginForm() {
           </p>
           <button
             className="bg-black rounded-xl font-medium text-white p-3 hover:bg-gray-800 transition-all duration-150 ease-in-out transform active:scale-95 w-full"
-            formAction={login}
-            onClick={() => {
+            onClick={async (e) => {
+              e.preventDefault();
               if (email != "" && password != "") {
                 setLoading(true);
+                try {
+                  await login(email, password);
+                } catch (error: Error | any) {
+                  setErrorMessage("Credenciais inválidas")
+                  setLoading(false);
+                }
+                
               }
             }}
           >
             {loading ? "Carregando..." : "Entrar"}
           </button>
+          {errorMessage && <p className="text-red-500 font-medium text-xs text-center">{errorMessage}</p>}
+          
+          
         </form>
 
         <div className="flex items-center justify-center my-2">
