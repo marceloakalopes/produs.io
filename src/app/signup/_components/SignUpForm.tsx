@@ -31,22 +31,23 @@ export default function SignUpForm() {
           <img src="/logo.png" alt="" />
         </Link>
       </div>
-      <div className="flex max-w-96 flex-col justify-center gap-5 max-md:max-w-80 ">
-        <div className="mb-5">
-          <h2 className="tracking-tight font-extrabold text-xl">
+      <div className="flex max-w-96 flex-col justify-center gap-5 max-md:gap-4 max-md:max-w-80 ">
+        <div className="mb-5 max-md:mb-0">
+          <h2 className="tracking-tight font-extrabold text-xl max-md:text-base">
             O melhor app de produtividade para estudantes
           </h2>
-          <h2 className="tracking-tight font-extrabold text-xl text-gray-400">
+          <h2 className="tracking-tight font-extrabold text-xl max-md:text-base text-gray-400">
             Crie sua conta da Produs
           </h2>
         </div>
 
-        <form className="flex flex-col gap-5">
+        <form className="flex flex-col gap-5 max-md:gap-3">
           <div>
-            <label className="font-bold text-sm" htmlFor="email">
+            <label className="font-bold text-sm max-md:text-xs" htmlFor="email">
               Email:
             </label>
             <Input
+            className="max-md:h-8 max-md:text-xs"
               id="email"
               name="email"
               type="email"
@@ -58,10 +59,11 @@ export default function SignUpForm() {
           </div>
 
           <div>
-            <label className="font-bold text-sm" htmlFor="password">
+            <label className="font-bold text-sm max-md:text-xs" htmlFor="password">
               Senha:
             </label>
             <Input
+            className="max-md:h-8 max-md:text-xs"
               id="password"
               name="password"
               type="password"
@@ -73,18 +75,20 @@ export default function SignUpForm() {
           </div>
 
           <div>
-            <label className="font-bold text-sm" htmlFor="password">
+            <label className="font-bold text-sm max-md:text-xs" htmlFor="password">
               Confirme a Senha:
             </label>
-            <Input id="password" name="password" type="password" required />
+            <Input
+            className="max-md:h-8 max-md:text-xs"
+            id="confirmPassword" name="confirmPassword" type="password" required />
           </div>
 
           <p className="text-gray-400 text-xs text-justify">
-            * Ao continuar, você confirma que entende e concorda com os Termos e
-            Condições e com a Política de Privacidade
+            * Ao continuar, você confirma que entende e concorda com os <Link className="underline" href='/'>Termos e
+            Condições</Link> e com a Política de Privacidade
           </p>
           <button
-            className="bg-black rounded-xl font-medium text-white p-3 hover:bg-gray-800 transition-all w-full"
+            className="max-md:text-sm max-md:p-2 bg-black rounded-lg font-medium text-white p-3 hover:bg-gray-800 transition-all w-full"
             formAction={() => {
               if (password === confirmPassword) {
                 signup;
@@ -100,7 +104,7 @@ export default function SignUpForm() {
           </button>
         </form>
 
-        <div className="flex items-center justify-center my-2">
+        <div className="flex items-center justify-center my-2 max-md:my-0">
           <div className="h-px w-full bg-gray-300"></div>
           <div className="w-full text-center">
             <p className="text-xs">Ou continue com</p>
@@ -111,7 +115,7 @@ export default function SignUpForm() {
         <div className="flex gap-3">
           <a
             href=""
-            className="flex items-center justify-center w-full p-3 border-2 rounded-xl border-gray-300"
+            className="flex items-center justify-center w-full p-3 border-2 rounded-xl border-gray-300 max-md:h-10 hover:bg-gray-300 ease-in-out transition-all duration-500"
           >
             <img
               className="w-4"
@@ -122,7 +126,7 @@ export default function SignUpForm() {
 
           <a
             href=""
-            className="flex items-center justify-center w-full p-3 border-2 rounded-xl border-gray-300"
+            className="flex items-center justify-center w-full p-3 border-2 rounded-xl border-gray-300 max-md:h-10 hover:bg-gray-300 ease-in-out transition-all duration-500"
           >
             <img
               className="w-4"
@@ -133,7 +137,7 @@ export default function SignUpForm() {
 
           <a
             href=""
-            className="flex items-center justify-center w-full p-3 border-2 rounded-xl border-gray-300"
+            className="flex items-center justify-center w-full p-3 border-2 rounded-xl border-gray-300 max-md:h-10 hover:bg-gray-300 ease-in-out transition-all duration-500"
           >
             <img
               className="w-4"
