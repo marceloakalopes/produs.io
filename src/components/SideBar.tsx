@@ -1,20 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { User } from "@/types/custom";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { signout } from "./actions";
+import { signout } from "./logic/actions";
+import Link from "next/link";
 
 const SideBar = ({ user }: { user: User }) => {
   const [loaded, setLoaded] = useState(false);
+
+  const pathname = usePathname();
 
   useEffect(() => {
     // Simulate loading delay for demonstration purposes
@@ -27,7 +23,7 @@ const SideBar = ({ user }: { user: User }) => {
 
   return (
     <div
-      className={`relative block flex-col min-h-screen max-h-full w-80 min-w-72 text-center items-center py-5 px-3 border border-gray-200 bg-[#f8f8f9] ${
+      className={`relative block flex-col min-h-screen max-h-full w-80 text-center items-center py-5 px-3 border border-gray-200 bg-[#f8f8f9] ${
         loaded
           ? "transition-transform ease-out duration-500 transform translate-x-0"
           : "transform -translate-x-full"
@@ -46,7 +42,9 @@ const SideBar = ({ user }: { user: User }) => {
           <div className="flex w-full justify-between">
             <div className="flex flex-col justify-center text-left">
               <div>
-                <h2 className="font-semibold text-xs select-none">Marcelo Lopes</h2>
+                <h2 className="font-semibold text-xs select-none">
+                  Marcelo Lopes
+                </h2>
               </div>
               <div>
                 <p className=" font-normal text-[12px] text-gray-500 select-none">
@@ -77,64 +75,144 @@ const SideBar = ({ user }: { user: User }) => {
       </div>
 
       <div className="block ">
-        <div className="flex px-4 py-2 mb-2 bg-[#22232A] rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95">
-          <svg
-            width="16px"
-            height="100%"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        <Link href="/webapp/dashboard">
+          <div
+            className={`flex px-4 py-2 mb-2 ${
+              pathname == "/webapp/dashboard"
+                ? "bg-[#22232A]"
+                : "hover:bg-gray-200"
+            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-500 ease-in-out transform active:scale-95`}
           >
-            <path
-              d="M14 11H8M10 15H8M16 7H8M20 6.8V17.2C20 18.8802 20 19.7202 19.673 20.362C19.3854 20.9265 18.9265 21.3854 18.362 21.673C17.7202 22 16.8802 22 15.2 22H8.8C7.11984 22 6.27976 22 5.63803 21.673C5.07354 21.3854 4.6146 20.9265 4.32698 20.362C4 19.7202 4 18.8802 4 17.2V6.8C4 5.11984 4 4.27976 4.32698 3.63803C4.6146 3.07354 5.07354 2.6146 5.63803 2.32698C6.27976 2 7.11984 2 8.8 2H15.2C16.8802 2 17.7202 2 18.362 2.32698C18.9265 2.6146 19.3854 3.07354 19.673 3.63803C20 4.27976 20 5.11984 20 6.8Z"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <p className="text-white text-sm select-none">Boards</p>
-        </div>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16px"
+              height="100%"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke={`${
+                  pathname == "/webapp/dashboard" ? "#fff" : "#6B7280"
+                }`}
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"
+              />
+            </svg>
 
-        <div className="flex px-4 py-2 mb-2 rounded-lg w-full items-center justify-start gap-3 cursor-pointer hover:bg-gray-200 transition-all duration-300 ease-in-out transform active:scale-95">
-          <svg
-            width="16px"
-            height="100%"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            <p
+              className={`${
+                pathname == "/webapp/dashboard" ? "text-white" : "text-gray-500"
+              } text-sm select-none`}
+            >
+              Painel
+            </p>
+          </div>
+        </Link>
+
+        <Link href="/webapp/boards">
+          <div
+            className={`flex px-4 py-2 mb-2 ${
+              pathname == "/webapp/boards"
+                ? "bg-[#22232A]"
+                : "hover:bg-gray-200"
+            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-500 ease-in-out transform active:scale-95`}
           >
-            <path
-              d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z"
-              stroke="#6B7280"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+            <svg
+              width="16px"
+              height="100%"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 11H8M10 15H8M16 7H8M20 6.8V17.2C20 18.8802 20 19.7202 19.673 20.362C19.3854 20.9265 18.9265 21.3854 18.362 21.673C17.7202 22 16.8802 22 15.2 22H8.8C7.11984 22 6.27976 22 5.63803 21.673C5.07354 21.3854 4.6146 20.9265 4.32698 20.362C4 19.7202 4 18.8802 4 17.2V6.8C4 5.11984 4 4.27976 4.32698 3.63803C4.6146 3.07354 5.07354 2.6146 5.63803 2.32698C6.27976 2 7.11984 2 8.8 2H15.2C16.8802 2 17.7202 2 18.362 2.32698C18.9265 2.6146 19.3854 3.07354 19.673 3.63803C20 4.27976 20 5.11984 20 6.8Z"
+                stroke={`${pathname == "/webapp/boards" ? "#fff" : "#6B7280"}`}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
 
-          <p className="text-sm text-gray-500 select-none">Calendario</p>
-        </div>
+            <p
+              className={`${
+                pathname == "/webapp/boards" ? "text-white" : "text-gray-500"
+              } text-sm select-none`}
+            >
+              Quadros
+            </p>
+          </div>
+        </Link>
 
-        <div className="flex px-4 py-2 mb-2 rounded-lg w-full items-center justify-start gap-3 cursor-pointer hover:bg-gray-200 transition-all duration-300 ease-in-out transform active:scale-95">
-          <svg
-            width="16px"
-            height="100%"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        <Link href="/webapp/calendar">
+          <div
+            className={`flex px-4 py-2 mb-2 ${
+              pathname == "/webapp/calendar"
+                ? "bg-[#22232A]"
+                : "hover:bg-gray-200"
+            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95`}
           >
-            <path
-              d="M5 3L2 6M22 6L19 3M6 19L4 21M18 19L20 21M12 9V13L14 15M12 21C14.1217 21 16.1566 20.1571 17.6569 18.6569C19.1571 17.1566 20 15.1217 20 13C20 10.8783 19.1571 8.84344 17.6569 7.34315C16.1566 5.84285 14.1217 5 12 5C9.87827 5 7.84344 5.84285 6.34315 7.34315C4.84285 8.84344 4 10.8783 4 13C4 15.1217 4.84285 17.1566 6.34315 18.6569C7.84344 20.1571 9.87827 21 12 21Z"
-              stroke="#6B7280"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+            <svg
+              width="16px"
+              height="100%"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z"
+                stroke={`${
+                  pathname == "/webapp/calendar" ? "#fff" : "#6B7280"
+                }`}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
 
-          <p className="text-sm text-gray-500 select-none">Cronômetro</p>
-        </div>
+            <p
+              className={`text-sm ${
+                pathname == "/webapp/calendar" ? "text-white" : "text-gray-500"
+              } select-none`}
+            >
+              Calendario
+            </p>
+          </div>
+        </Link>
+
+        <Link href="/webapp/timer">
+          <div
+            className={`flex px-4 py-2 mb-2 ${
+              pathname == "/webapp/timer" ? "bg-[#22232A]" : "hover:bg-gray-200"
+            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95`}
+          >
+            <svg
+              width="16px"
+              height="100%"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 3L2 6M22 6L19 3M6 19L4 21M18 19L20 21M12 9V13L14 15M12 21C14.1217 21 16.1566 20.1571 17.6569 18.6569C19.1571 17.1566 20 15.1217 20 13C20 10.8783 19.1571 8.84344 17.6569 7.34315C16.1566 5.84285 14.1217 5 12 5C9.87827 5 7.84344 5.84285 6.34315 7.34315C4.84285 8.84344 4 10.8783 4 13C4 15.1217 4.84285 17.1566 6.34315 18.6569C7.84344 20.1571 9.87827 21 12 21Z"
+                stroke={`${pathname == "/webapp/timer" ? "#fff" : "#6B7280"}`}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+
+            <p
+              className={`text-sm ${
+                pathname == "/webapp/timer" ? "text-white" : "text-gray-500"
+              } select-none`}
+            >
+              Cronômetro
+            </p>
+          </div>
+        </Link>
       </div>
 
       <div className="absolute bottom-0 left-0 flex flex-col w-full p-5 items-center">
@@ -205,8 +283,13 @@ const SideBar = ({ user }: { user: User }) => {
           <p className="text-sm text-gray-500 select-none">Configurações</p>
         </div>
 
-        <Button onClick={() => signout()} variant='outline' className="select-none w-full transition-all duration-300 ease-in-out transform active:scale-95">Sair</Button>
-
+        <Button
+          onClick={() => signout()}
+          variant="outline"
+          className="select-none w-full transition-all duration-300 ease-in-out transform active:scale-95"
+        >
+          Sair
+        </Button>
       </div>
     </div>
   );

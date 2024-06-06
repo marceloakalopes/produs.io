@@ -9,20 +9,35 @@ export async function login(loginEmail: string, loginPassword: string) {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
+  const loginData = {
     email: loginEmail,
     password: loginPassword,
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data)
+  const { data, error } = await supabase.auth.signInWithPassword(loginData)
 
   if (error) {
     return Promise.reject(error)
   } else {
     // redirect to the dashboard
-    revalidatePath('/dashboard', "layout")
-    redirect('/dashboard')
+    revalidatePath('/webapp/dashboard', "layout")
+    redirect('/webapp/dashboard')
   }
+}
+
+export async function loginWithGoogle() {
+  const supabase = createClient()
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: "http://localhost:3229/webapp/dashboard",
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    },
+  })
 }
 
 

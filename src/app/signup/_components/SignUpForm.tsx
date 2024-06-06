@@ -11,6 +11,7 @@ export default function SignUpForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loaded, setLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLoad = () => {
     setLoaded(true);
@@ -19,6 +20,27 @@ export default function SignUpForm() {
   useEffect(() => {
     handleLoad();
   }, []);
+
+  const handleSignUp = async () => {
+    if (email === "") {
+      setErrorMessage("Email é obrigatório");
+    } else if (password === "") {
+      setErrorMessage("Senha é obrigatória");
+    } else if (confirmPassword === "") {
+      setErrorMessage("Confirmação de senha é obrigatória");
+    } else if (password !== confirmPassword) {
+      setErrorMessage("Senhas não coincidem");
+    } else if (email != "" && password != "") {
+      setErrorMessage("");
+      setLoading(true);
+      try {
+        await signup(email, password, confirmPassword);
+      } catch (error: Error | any) {
+        setErrorMessage("Credenciais inválidas");
+        setLoading(false);
+      }
+    }
+  };
 
   return (
     <div
@@ -55,6 +77,7 @@ export default function SignUpForm() {
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
+              value={email}
             />
           </div>
 
@@ -71,6 +94,7 @@ export default function SignUpForm() {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              value={password}
             />
           </div>
 
@@ -80,7 +104,13 @@ export default function SignUpForm() {
             </label>
             <Input
             className="max-md:h-8 max-md:text-xs"
-            id="confirmPassword" name="confirmPassword" type="password" required />
+            id="confirmPassword" name="confirmPassword" type="password" required
+            onChange={(e) => {
+              e.preventDefault();
+              setConfirmPassword(e.target.value);
+            }}
+            value={confirmPassword}
+            />
           </div>
 
           <p className="text-gray-400 text-xs text-justify">
@@ -89,19 +119,16 @@ export default function SignUpForm() {
           </p>
           <button
             className="max-md:text-sm max-md:p-2 bg-black rounded-lg font-medium text-white p-3 hover:bg-gray-800 transition-all w-full"
-            formAction={() => {
-              if (password === confirmPassword) {
-                signup;
-              }
-            }}
-            onClick={() => {
-              if (password != "" && email != "") {
-                setLoading(true);
-              }
+            onClick={(e) => {
+              e.preventDefault();
+              handleSignUp();
             }}
           >
             {loading ? "Carregando..." : "Criar Conta"}
           </button>
+          {errorMessage && (
+            <p className="text-red-500 text-xs text-center">{errorMessage}</p>
+          )}
         </form>
 
         <div className="flex items-center justify-center my-2 max-md:my-0">

@@ -28,7 +28,7 @@ const NavBar = (user: User | any) => {
           <div className="flex items-center justify-center">
             <Link
               className="px-4 py-3 rounded-xl text-white text-sm bg-black font-semibold hover:bg-neutral-700 transition-all duration-300 ease-in-out transform active:scale-95"
-              href="/dashboard"
+              href="/webapp/dashboard"
             >
               Dashboard
             </Link>

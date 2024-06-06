@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { login } from "../actions";
+import { loginWithGoogle } from "../actions";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loaded, setLoaded] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLoad = () => {
     setLoaded(true);
@@ -19,6 +20,23 @@ export default function LoginForm() {
   useEffect(() => {
     handleLoad();
   }, []);
+
+  const handleLogin = async () => {
+    if (email === "") {
+      setErrorMessage("Email é obrigatório");
+    } else if (password === "") {
+      setErrorMessage("Senha é obrigatória");
+    } else if (email != "" && password != "") {
+      setErrorMessage("");
+      setLoading(true);
+      try {
+        await login(email, password);
+      } catch (error: Error | any) {
+        setErrorMessage("Credenciais inválidas");
+        setLoading(false);
+      }
+    }
+  };
 
   return (
     <div
@@ -47,28 +65,43 @@ export default function LoginForm() {
               Email:
             </label>
             <Input
-            className="max-md:h-8 max-md:text-xs"
+              className="max-md:h-8 max-md:text-xs"
               id="email"
               name="email"
               type="email"
               required
               onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleLogin();
+                }
+              }}
               value={email}
             />
           </div>
 
           <div>
-            <label className="font-bold text-sm max-md:text-xs" htmlFor="password">
+            <label
+              className="font-bold text-sm max-md:text-xs"
+              htmlFor="password"
+            >
               Senha:
             </label>
             <Input
-            className="max-md:h-8 max-md:text-xs"
+              className="max-md:h-8 max-md:text-xs"
               id="password"
               name="password"
               type="password"
               required
               onChange={(e) => {
                 setPassword(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleLogin();
+                }
               }}
               value={password}
             />
@@ -79,34 +112,19 @@ export default function LoginForm() {
           </p>
           <button
             className="max-md:text-sm max-md:p-2 bg-black rounded-lg font-medium text-white p-3 hover:bg-gray-800 transition-all duration-150 ease-in-out transform active:scale-95 w-full"
-            onClick={async (e) => {
+            onClick={(e) => {
               e.preventDefault();
-              if (email === "") {
-                setErrorMessage("Email é obrigatório")
-              }
-              else if (password === "") {
-                setErrorMessage("Senha é obrigatória")
-              } 
-              else if (email != "" && password != "") {
-                setErrorMessage("")
-                setLoading(true);
-                try {
-                  await login(email, password);
-                } catch (error: Error | any) {
-                  setErrorMessage("Credenciais inválidas")
-                  setLoading(false);
-                }
-                
-              }
-            }
-          }
-          value={password}
+              handleLogin();
+            }}
+            value={password}
           >
             {loading ? "Carregando..." : "Entrar"}
           </button>
-          {errorMessage && <p className="text-red-500 font-medium text-xs text-center">{errorMessage}</p>}
-          
-          
+          {errorMessage && (
+            <p className="text-red-500 font-medium text-xs text-center">
+              {errorMessage}
+            </p>
+          )}
         </div>
 
         <div className="flex items-center justify-center my-2 max-md:my-0">
@@ -118,16 +136,22 @@ export default function LoginForm() {
         </div>
 
         <div className="flex gap-3">
-          <a
-            href=""
-            className="flex items-center justify-center w-full p-1 border-2 rounded-xl border-gray-300 max-md:h-10 hover:bg-gray-300 ease-in-out transition-all duration-500"
+          <div
+            onClick={async () => {
+              try {
+                await loginWithGoogle();
+              } catch (error: Error | any) {
+                console.error(error);
+              }
+            }}
+            className="cursor-pointer flex items-center justify-center w-full p-1 border-2 rounded-xl border-gray-300 max-md:h-10 hover:bg-gray-300 ease-in-out transition-all duration-500"
           >
             <img
               className="w-4"
               src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
               alt=""
             />
-          </a>
+          </div>
 
           <a
             href=""
