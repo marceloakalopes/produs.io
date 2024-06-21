@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/custom/NavBar";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function Home() {

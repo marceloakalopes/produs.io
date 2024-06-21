@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { User } from "@/types/custom";
 import { Button } from "@/components/ui/button";
-import { signout } from "./logic/actions";
+import { signout } from "../logic/actions";
 import Link from "next/link";
 
 const SideBar = ({ user }: { user: User }) => {
@@ -23,14 +23,15 @@ const SideBar = ({ user }: { user: User }) => {
 
   return (
     <div
-      className={`relative block flex-col min-h-screen max-h-full w-80 text-center items-center py-5 px-3 border border-gray-200 bg-[#f8f8f9] ${
+      className={`relative block max-lg:flex max-lg:flex-col items-center min-h-screen max-h-full w-80 max-lg:w-16 text-center py-5 px-3 border border-gray-200 bg-[#f8f8f9] ${
         loaded
           ? "transition-transform ease-out duration-500 transform translate-x-0"
           : "transform -translate-x-full"
       }`}
     >
-      <div className="pt-5 pb-10">
-        <div className="flex gap-3 py-2 px-2 border bg-white border-gray-200 rounded-2xl">
+      {/* User profile */}
+      <div className="pt-2 pb-5 max-lg:flex max-lg:items-center cursor-pointer">
+        <div className="flex gap-3 py-2 max-lg:p-1 px-2 border bg-white border-gray-200 rounded-2xl max-lg:rounded-xl">
           <div
             className="min-w-10 min-h-10 rounded-lg bg-cover bg-center "
             style={{
@@ -39,11 +40,11 @@ const SideBar = ({ user }: { user: User }) => {
             }}
           ></div>
 
-          <div className="flex w-full justify-between">
+          <div className="flex w-full max-lg:hidden justify-between">
             <div className="flex flex-col justify-center text-left">
               <div>
                 <h2 className="font-semibold text-xs select-none">
-                  Marcelo Lopes
+                  {user.name}
                 </h2>
               </div>
               <div>
@@ -74,20 +75,19 @@ const SideBar = ({ user }: { user: User }) => {
         </div>
       </div>
 
-      <div className="block ">
+      {/* Sidebar navigation */}
+      <div className="block max-lg:flex max-lg:flex-col">
         <Link href="/webapp/dashboard">
           <div
-            className={`flex px-4 py-2 mb-2 ${
+            className={`flex items-center max-lg:justify-center px-4 py-2 max-lg:px-2 mb-2 ${
               pathname == "/webapp/dashboard"
                 ? "bg-[#22232A]"
                 : "hover:bg-gray-200"
-            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-500 ease-in-out transform active:scale-95`}
+            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-00 ease-in-out transform active:scale-95`}
           >
             <svg
-              aria-hidden="true"
+              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
               xmlns="http://www.w3.org/2000/svg"
-              width="16px"
-              height="100%"
               fill="none"
               viewBox="0 0 24 24"
             >
@@ -95,34 +95,99 @@ const SideBar = ({ user }: { user: User }) => {
                 stroke={`${
                   pathname == "/webapp/dashboard" ? "#fff" : "#6B7280"
                 }`}
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 18.5A2.493 2.493 0 0 1 7.51 20H7.5a2.468 2.468 0 0 1-2.4-3.154 2.98 2.98 0 0 1-.85-5.274 2.468 2.468 0 0 1 .92-3.182 2.477 2.477 0 0 1 1.876-3.344 2.5 2.5 0 0 1 3.41-1.856A2.5 2.5 0 0 1 12 5.5m0 13v-13m0 13a2.493 2.493 0 0 0 4.49 1.5h.01a2.468 2.468 0 0 0 2.403-3.154 2.98 2.98 0 0 0 .847-5.274 2.468 2.468 0 0 0-.921-3.182 2.477 2.477 0 0 0-1.875-3.344A2.5 2.5 0 0 0 14.5 3 2.5 2.5 0 0 0 12 5.5m-8 5a2.5 2.5 0 0 1 3.48-2.3m-.28 8.551a3 3 0 0 1-2.953-5.185M20 10.5a2.5 2.5 0 0 0-3.481-2.3m.28 8.551a3 3 0 0 0 2.954-5.185"
               />
             </svg>
 
             <p
               className={`${
                 pathname == "/webapp/dashboard" ? "text-white" : "text-gray-500"
-              } text-sm select-none`}
+              } text-sm select-none max-lg:hidden`}
             >
               Painel
             </p>
           </div>
         </Link>
 
-        <Link href="/webapp/boards">
+        {/* Eisenhower Matrix */}
+        <Link href="/webapp/matrix">
           <div
-            className={`flex px-4 py-2 mb-2 ${
+            className={`flex items-center max-lg:justify-center px-4 py-2 max-lg:px-2 mb-2 ${
+              pathname == "/webapp/matrix"
+                ? "bg-[#22232A]"
+                : "hover:bg-gray-200"
+            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-00 ease-in-out transform active:scale-95`}
+          >
+            <svg
+              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke={`${pathname == "/webapp/matrix" ? "#fff" : "#6B7280"}`}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5Zm16 14a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2ZM4 13a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6Zm16-2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6Z"
+              />
+            </svg>
+
+            <p
+              className={`${
+                pathname == "/webapp/matrix" ? "text-white" : "text-gray-500"
+              } text-sm select-none max-lg:hidden`}
+            >
+              Matriz de Eisenhower
+            </p>
+          </div>
+        </Link>
+
+        {/* To-do list */}
+        <Link href="/webapp/tasks">
+          <div
+            className={`flex items-center max-lg:justify-center px-4 py-2 max-lg:px-2 mb-2 ${
+              pathname == "/webapp/tasks" ? "bg-[#22232A]" : "hover:bg-gray-200"
+            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-00 ease-in-out transform active:scale-95`}
+          >
+            <svg
+              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke={`${pathname == "/webapp/tasks" ? "#fff" : "#6B7280"}`}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"
+              />
+            </svg>
+
+            <p
+              className={`${
+                pathname == "/webapp/tasks" ? "text-white" : "text-gray-500"
+              } text-sm select-none max-lg:hidden`}
+            >
+              Lista de Tarefas
+            </p>
+          </div>
+        </Link>
+
+        {/* <Link href="/webapp/boards">
+          <div
+            className={`flex px-4 py-2 mb-2 max-lg:justify-center max-lg:px-2 ${
               pathname == "/webapp/boards"
                 ? "bg-[#22232A]"
                 : "hover:bg-gray-200"
-            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-500 ease-in-out transform active:scale-95`}
+            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95`}
           >
             <svg
-              width="16px"
-              height="100%"
+              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -139,24 +204,23 @@ const SideBar = ({ user }: { user: User }) => {
             <p
               className={`${
                 pathname == "/webapp/boards" ? "text-white" : "text-gray-500"
-              } text-sm select-none`}
+              } text-sm select-none max-lg:hidden`}
             >
               Quadros
             </p>
           </div>
-        </Link>
+        </Link> */}
 
-        <Link href="/webapp/calendar">
+        {/*<Link href="/webapp/calendar">
           <div
-            className={`flex px-4 py-2 mb-2 ${
+            className={`flex px-4 py-2 mb-2 max-lg:justify-center max-lg:px-2 ${
               pathname == "/webapp/calendar"
                 ? "bg-[#22232A]"
                 : "hover:bg-gray-200"
             } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95`}
           >
             <svg
-              width="16px"
-              height="100%"
+              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -175,22 +239,21 @@ const SideBar = ({ user }: { user: User }) => {
             <p
               className={`text-sm ${
                 pathname == "/webapp/calendar" ? "text-white" : "text-gray-500"
-              } select-none`}
+              } select-none max-lg:hidden`}
             >
               Calendario
             </p>
           </div>
-        </Link>
+        </Link> */}
 
         <Link href="/webapp/timer">
           <div
-            className={`flex px-4 py-2 mb-2 ${
+            className={`flex px-4 py-2 mb-2 max-lg:justify-center max-lg:px-2 ${
               pathname == "/webapp/timer" ? "bg-[#22232A]" : "hover:bg-gray-200"
             } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95`}
           >
             <svg
-              width="16px"
-              height="100%"
+              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +270,7 @@ const SideBar = ({ user }: { user: User }) => {
             <p
               className={`text-sm ${
                 pathname == "/webapp/timer" ? "text-white" : "text-gray-500"
-              } select-none`}
+              } select-none max-lg:hidden`}
             >
               Cronômetro
             </p>
@@ -215,31 +278,49 @@ const SideBar = ({ user }: { user: User }) => {
         </Link>
       </div>
 
-      <div className="absolute bottom-0 left-0 flex flex-col w-full p-5 items-center">
-        <div className="flex px-4 py-2 mb-2 rounded-lg w-full items-center justify-start gap-3 cursor-pointer hover:bg-gray-200 transition-all duration-300 ease-in-out transform active:scale-95">
-          <svg
-            width="16px"
-            height="100%"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M22 10H2M11 14H6M2 8.2L2 15.8C2 16.9201 2 17.4802 2.21799 17.908C2.40973 18.2843 2.71569 18.5903 3.09202 18.782C3.51984 19 4.07989 19 5.2 19L18.8 19C19.9201 19 20.4802 19 20.908 18.782C21.2843 18.5903 21.5903 18.2843 21.782 17.908C22 17.4802 22 16.9201 22 15.8V8.2C22 7.0799 22 6.51984 21.782 6.09202C21.5903 5.7157 21.2843 5.40974 20.908 5.21799C20.4802 5 19.9201 5 18.8 5L5.2 5C4.0799 5 3.51984 5 3.09202 5.21799C2.7157 5.40973 2.40973 5.71569 2.21799 6.09202C2 6.51984 2 7.07989 2 8.2Z"
-              stroke="#6B7280"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+      {/* Sidebar footer */}
+      <div className="absolute bottom-0 left-0 flex flex-col w-full mb-5 max-lg:p-0 px-3 items-center">
+        <div className="flex px-4 py-2 mb-2 max-lg:justify-center max-lg:px-2 rounded-lg w-full max-lg:w-fit items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95 hover:bg-gray-200">
+          {user.plus ? (
+            <svg
+              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M22 10H2M11 14H6M2 8.2L2 15.8C2 16.9201 2 17.4802 2.21799 17.908C2.40973 18.2843 2.71569 18.5903 3.09202 18.782C3.51984 19 4.07989 19 5.2 19L18.8 19C19.9201 19 20.4802 19 20.908 18.782C21.2843 18.5903 21.5903 18.2843 21.782 17.908C22 17.4802 22 16.9201 22 15.8V8.2C22 7.0799 22 6.51984 21.782 6.09202C21.5903 5.7157 21.2843 5.40974 20.908 5.21799C20.4802 5 19.9201 5 18.8 5L5.2 5C4.0799 5 3.51984 5 3.09202 5.21799C2.7157 5.40973 2.40973 5.71569 2.21799 6.09202C2 6.51984 2 7.07989 2 8.2Z"
+                stroke="#6B7280"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 -960 960 960"
+              fill="#6B7280"
+            >
+              <path
+                d="m422-232 207-248H469l29-227-185 267h139l-30 208ZM320-80l40-280H160l360-520h80l-40 320h240L400-80h-80Zm151-390Z"
+                stroke="#6B7280"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
 
-          <p className="text-sm text-gray-500 select-none">Plano</p>
+          <p className="text-sm text-gray-500 select-none max-lg:hidden">
+            {user.plus ? "Plano" : "Fazer upgrade"}
+          </p>
         </div>
 
-        <div className="flex px-4 py-2 mb-2 rounded-lg w-full items-center justify-start gap-3 cursor-pointer hover:bg-gray-200 transition-all duration-300 ease-in-out transform active:scale-95">
+        <div className="flex px-4 py-2 mb-2 max-lg:justify-center max-lg:px-2 rounded-lg w-full max-lg:w-fit items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95 hover:bg-gray-200">
           <svg
-            width="16px"
-            height="100%"
+            className="w-4 h-4 max-lg:w-5 max-lg:h-5"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -253,13 +334,14 @@ const SideBar = ({ user }: { user: User }) => {
             />
           </svg>
 
-          <p className="text-sm text-gray-500 select-none">Suporte</p>
+          <p className="text-sm max-lg:hidden text-gray-500 select-none">
+            Suporte
+          </p>
         </div>
 
-        <div className="flex px-4 py-2 mb-2 rounded-lg w-full items-center justify-start gap-3 cursor-pointer hover:bg-gray-200 transition-all duration-300 ease-in-out transform active:scale-95">
+        <div className="flex px-4 py-2 mb-2 max-lg:justify-center max-lg:px-2 rounded-lg w-full max-lg:w-fit items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95 hover:bg-gray-200">
           <svg
-            width="16px"
-            height="100%"
+            className="w-4 h-4 max-lg:w-5 max-lg:h-5"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -280,15 +362,32 @@ const SideBar = ({ user }: { user: User }) => {
             />
           </svg>
 
-          <p className="text-sm text-gray-500 select-none">Configurações</p>
+          <p className="text-sm max-lg:hidden text-gray-500 select-none">
+            Configurações
+          </p>
         </div>
 
         <Button
           onClick={() => signout()}
-          variant="outline"
-          className="select-none w-full transition-all duration-300 ease-in-out transform active:scale-95"
+          variant="destructive"
+          className="select-none w-full transition-all duration-300 ease-in-out transform active:scale-95 max-lg:flex max-lg:items-center max-lg:justify-center max-lg:p-3 max-lg:w-auto"
         >
-          Sair
+          <svg
+            className="w-6 h-6 text-gray-800 dark:text-white max-lg:inline hidden max-lg:w-5 max-lg:h-5 max-lg:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"
+            />
+          </svg>
+          <span className="max-lg:hidden">Sair</span>
         </Button>
       </div>
     </div>

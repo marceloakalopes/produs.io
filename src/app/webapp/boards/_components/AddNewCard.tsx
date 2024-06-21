@@ -15,9 +15,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const AddNewCard = () => {
   const [loaded, setLoaded] = useState(false);
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,30 +55,32 @@ const AddNewCard = () => {
                 />
               </svg>
 
-              <p className=" text-base">Criar novo Board</p>
+              <p className=" text-base">Criar novo Quadro</p>
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle className="text-lg font-bold">Criar novo Board</AlertDialogTitle>
+              <AlertDialogTitle className="text-lg font-bold">Criar novo Quadro</AlertDialogTitle>
             </AlertDialogHeader>
             <form className="block">
+              <AlertDialogDescription className="text-sm text-muted-foreground">
+                Preencha os campos abaixo para criar um novo quadro.
+              </AlertDialogDescription>
               <Input
                 className="my-4"
                 id="title"
                 name="title"
                 type="text"
-                placeholder="Título"
+                placeholder="Matéria"
+                required
+                onChange={e => {
+                  e.preventDefault();
+                  setTitle(e.target.value);
+                }}
               />
-              <Input
-                className="my-4"
-                id="board_img"
-                name="board_img"
-                type="text"
-                placeholder="Imagem URL"
-              />
-            
-            
+              <div className="mb-5">
+              {/* Unsplash API */}
+              </div>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancelar</AlertDialogCancel>
               <AlertDialogAction type="submit" formAction={addBoard}>

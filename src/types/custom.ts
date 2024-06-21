@@ -2,8 +2,10 @@ import { Database } from "./supabase";
 
 export type Board = Database["public"]["Tables"]["boards"]["Row"];
 export type User = {
-    id: string;
-    email: string;
+    user_id: string;
     created_at: string;
-    updated_at: string;
+    name: string;
+    email: string;
+    profile_img: string;
+    plus: boolean;
 };
