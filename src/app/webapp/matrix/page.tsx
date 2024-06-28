@@ -30,22 +30,8 @@ export default function Page() {
             </h3>
           </div>
 
-          {/* Chat GPT -> When I place several TodoMatrix here, this div ends up expanding downwards and taking the space of the others. I didn't want that to happen. I would like this div to remain the same size and if there are many TodoMatrix I can scroll to find the ones below */}
           <div className="block gap-3">
-            <TodoMatrix
-              id="1"
-              done={false}
-              title="Criar conta na Produs"
-              description="Estudar para a prova de matemática que será realizada na próxima semana."
-              dueDate="2024-10-10"
-            />
-            <TodoMatrix
-              id="2"
-              done={false}
-              title="Estudar para a prova de matemática"
-              description="Estudar para a prova de matemática que será realizada na próxima semana."
-              dueDate="2024-10-10"
-            />
+            
           </div>
         </ScrollArea>
 

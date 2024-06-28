@@ -2,10 +2,24 @@
 
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import { User } from "@/types/custom";
 import { Button } from "@/components/ui/button";
 import { signout } from "../logic/actions";
-import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getInitials } from "@/utils/custom/getInitials";
 
 const SideBar = ({ user }: { user: User }) => {
   const [loaded, setLoaded] = useState(false);
@@ -29,51 +43,67 @@ const SideBar = ({ user }: { user: User }) => {
           : "transform -translate-x-full"
       }`}
     >
-      {/* User profile */}
-      <div className="pt-2 pb-5 max-lg:flex max-lg:items-center cursor-pointer">
-        <div className="flex gap-3 py-2 max-lg:p-1 px-2 border bg-white border-gray-200 rounded-2xl max-lg:rounded-xl">
-          <div
-            className="min-w-10 min-h-10 rounded-lg bg-cover bg-center "
-            style={{
-              backgroundImage:
-                " url(https://discussions.apple.com/content/attachment/6692d3b3-c2bb-43df-8b66-a2aa2563039b)",
-            }}
-          ></div>
+      <AlertDialog>
+        <AlertDialogTrigger>
+          {/* User profile */}
+          <div className="pt-2 pb-5 max-lg:flex max-lg:items-center cursor-pointer">
+            <div className="flex gap-3 py-2 max-lg:p-1 px-2 border bg-white border-gray-200 rounded-2xl max-lg:rounded-xl">
+              <Avatar className="min-w-10 min-h-10 rounded-lg bg-cover bg-center">
+                <AvatarImage src={user.profile_img} alt="User avatar" />
+                <AvatarFallback className="min-w-10 min-h-10 rounded-lg bg-cover bg-center">
+                  {getInitials(user.name)}
+                </AvatarFallback>
+              </Avatar>
 
-          <div className="flex w-full max-lg:hidden justify-between">
-            <div className="flex flex-col justify-center text-left">
-              <div>
-                <h2 className="font-semibold text-xs select-none">
-                  {user.name}
-                </h2>
-              </div>
-              <div>
-                <p className=" font-normal text-[12px] text-gray-500 select-none">
-                  {user.email}
-                </p>
-              </div>
-            </div>
+              <div className="flex w-full max-lg:hidden justify-between">
+                <div className="flex flex-col justify-center text-left">
+                  <div>
+                    <h2 className="font-semibold text-xs select-none">
+                      {user.name}
+                    </h2>
+                  </div>
+                  <div>
+                    <p className=" font-normal text-[12px] text-gray-500 select-none">
+                      {user.email}
+                    </p>
+                  </div>
+                </div>
 
-            <div className="pl-4">
-              <svg
-                width="18px"
-                height="100%"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7 15L12 20L17 15M7 9L12 4L17 9"
-                  stroke="#6B7280"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+                <div className="pl-4">
+                  <svg
+                    width="18px"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7 15L12 20L17 15M7 9L12 4L17 9"
+                      stroke="#6B7280"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Sidebar navigation */}
       <div className="block max-lg:flex max-lg:flex-col">
@@ -113,7 +143,7 @@ const SideBar = ({ user }: { user: User }) => {
         </Link>
 
         {/* Eisenhower Matrix */}
-        <Link href="/webapp/matrix">
+        {/* <Link href="/webapp/matrix">
           <div
             className={`flex items-center max-lg:justify-center px-4 py-2 max-lg:px-2 mb-2 ${
               pathname == "/webapp/matrix"
@@ -142,6 +172,39 @@ const SideBar = ({ user }: { user: User }) => {
               } text-sm select-none max-lg:hidden`}
             >
               Matriz de Eisenhower
+            </p>
+          </div>
+        </Link> */}
+
+        <Link href="/webapp/boards">
+          <div
+            className={`flex px-4 py-2 mb-2 max-lg:justify-center max-lg:px-2 ${
+              pathname == "/webapp/boards"
+                ? "bg-[#22232A]"
+                : "hover:bg-gray-200"
+            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95`}
+          >
+            <svg
+              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 11H8M10 15H8M16 7H8M20 6.8V17.2C20 18.8802 20 19.7202 19.673 20.362C19.3854 20.9265 18.9265 21.3854 18.362 21.673C17.7202 22 16.8802 22 15.2 22H8.8C7.11984 22 6.27976 22 5.63803 21.673C5.07354 21.3854 4.6146 20.9265 4.32698 20.362C4 19.7202 4 18.8802 4 17.2V6.8C4 5.11984 4 4.27976 4.32698 3.63803C4.6146 3.07354 5.07354 2.6146 5.63803 2.32698C6.27976 2 7.11984 2 8.8 2H15.2C16.8802 2 17.7202 2 18.362 2.32698C18.9265 2.6146 19.3854 3.07354 19.673 3.63803C20 4.27976 20 5.11984 20 6.8Z"
+                stroke={`${pathname == "/webapp/boards" ? "#fff" : "#6B7280"}`}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+
+            <p
+              className={`${
+                pathname == "/webapp/boards" ? "text-white" : "text-gray-500"
+              } text-sm select-none max-lg:hidden`}
+            >
+              Quadros
             </p>
           </div>
         </Link>
@@ -177,39 +240,6 @@ const SideBar = ({ user }: { user: User }) => {
             </p>
           </div>
         </Link>
-
-        {/* <Link href="/webapp/boards">
-          <div
-            className={`flex px-4 py-2 mb-2 max-lg:justify-center max-lg:px-2 ${
-              pathname == "/webapp/boards"
-                ? "bg-[#22232A]"
-                : "hover:bg-gray-200"
-            } rounded-lg w-full items-center justify-start gap-3 cursor-pointer transition-all duration-300 ease-in-out transform active:scale-95`}
-          >
-            <svg
-              className="w-4 h-4 max-lg:w-5 max-lg:h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14 11H8M10 15H8M16 7H8M20 6.8V17.2C20 18.8802 20 19.7202 19.673 20.362C19.3854 20.9265 18.9265 21.3854 18.362 21.673C17.7202 22 16.8802 22 15.2 22H8.8C7.11984 22 6.27976 22 5.63803 21.673C5.07354 21.3854 4.6146 20.9265 4.32698 20.362C4 19.7202 4 18.8802 4 17.2V6.8C4 5.11984 4 4.27976 4.32698 3.63803C4.6146 3.07354 5.07354 2.6146 5.63803 2.32698C6.27976 2 7.11984 2 8.8 2H15.2C16.8802 2 17.7202 2 18.362 2.32698C18.9265 2.6146 19.3854 3.07354 19.673 3.63803C20 4.27976 20 5.11984 20 6.8Z"
-                stroke={`${pathname == "/webapp/boards" ? "#fff" : "#6B7280"}`}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-
-            <p
-              className={`${
-                pathname == "/webapp/boards" ? "text-white" : "text-gray-500"
-              } text-sm select-none max-lg:hidden`}
-            >
-              Quadros
-            </p>
-          </div>
-        </Link> */}
 
         {/*<Link href="/webapp/calendar">
           <div

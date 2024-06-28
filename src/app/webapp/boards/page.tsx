@@ -1,3 +1,4 @@
+
 import { createClient } from "@/utils/supabase/server";
 import BoardCard from "./_components/BoardCard";
 import AddNewCard from "./_components/AddNewCard";
@@ -8,8 +9,13 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   }
-
 };
+
+enum difficulty {
+  EASY = "Fácil",
+  MEDIUM = "Médio",
+  HARD = "Difícil",
+}
 
 export default async function Dashboard() {
   const supabase = createClient();
@@ -37,6 +43,11 @@ export default async function Dashboard() {
             title={board.title}
             board_img={board.board_img}
             board_id={board.board_id}
+            difficulty={difficulty.MEDIUM}
+            next_test="5 de agosto"
+            tasks={5}
+            assignments={2}
+            tests={1}
           />
         ))}
       </div>
