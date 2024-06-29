@@ -6,6 +6,7 @@
  * getInitials("John Doe") // JD
  */
 export const getInitials = (name: string): string => {
+  if (!name) return "";
   const names = name.split(" ");
   const initials = names.map((name) => name[0]);
   return initials.join("");
