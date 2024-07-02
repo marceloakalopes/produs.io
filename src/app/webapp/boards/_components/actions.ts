@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
+import { profile } from 'console'
 
 export async function addBoard(formData: FormData) {
   const supabase = createClient()
@@ -11,15 +12,18 @@ export async function addBoard(formData: FormData) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const boardImg = await fetch(`https://api.unsplash.com/photos/random?query=${formData.get('title') as string}&client_id=${process.env.UNSPLASH_ACCESS_KEY}`)
+  console.log(boardImg)
+
   const data = {
     title: formData.get('title') as string,
-    board_img: formData.get('board_img') as string,
     user_id: user?.id as string,
+    board_img: boardImg.url as string,
   }
 
   const { error } = await supabase.from('boards').insert([data]).eq('user_id', user?.id as string)
 
-  revalidatePath('/dashboard', 'layout')
+  revalidatePath('/webapp/boards', 'layout')
 }
 
 export async function deleteBoard(id: number) {

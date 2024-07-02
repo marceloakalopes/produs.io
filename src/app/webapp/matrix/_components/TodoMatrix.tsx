@@ -2,11 +2,6 @@
 
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
 type TodoMatrixProps = {
   id: string;
@@ -21,8 +16,12 @@ const TodoMatrix = (props: TodoMatrixProps) => {
   const [done, setDone] = useState(props.done);
 
   return (
+    <>
     <div className="rounded-lg hover:bg-gray-100 ease-in-out duration-150 mx-6 cursor-pointer">
-      <div className="flex items-center justify-between px-4">
+      <div className="flex items-center justify-between px-4" onClick={e => {
+        e.preventDefault();
+        setSelected(!selected);
+      }}>
         <div id={props.id} className="flex h-10 items-center">
           <span
             onClick={() => setDone(!done)}
@@ -51,6 +50,7 @@ const TodoMatrix = (props: TodoMatrixProps) => {
         <Separator className="bg-gray-100" />
       </div>
     </div>
+    </>
   );
 };
 

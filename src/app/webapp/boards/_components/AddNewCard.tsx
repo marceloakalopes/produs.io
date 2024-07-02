@@ -25,14 +25,14 @@ const AddNewCard = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaded(true);
-    }, 500);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div
-      className={`flex my-10 mx-8 justify-end transition-opacity duration-100 ${
+      className={`flex my-10 mx-8 justify-end transition-opacity duration-75 ${
         loaded ? "opacity-100 ease-in" : "opacity-0"
       }`}
     >
